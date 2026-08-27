@@ -4,7 +4,15 @@ from fastapi.responses import Response
 from rembg import remove
 from PIL import Image
 import io
+# Pre-scarica il modello AI durante l'avvio del server
+import subprocess
+import sys
 
+print("⏳ Download del modello AI in corso...")
+subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pillow", "onnxruntime"])
+from rembg import remove, new_session
+session = new_session()
+print("✅ Modello AI pronto!")
 app = FastAPI(title="AUTOdata Background Remover")
 
 app.add_middleware(
