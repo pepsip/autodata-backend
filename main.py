@@ -32,7 +32,7 @@ async def remove_background(file: UploadFile = File(...)):
     try:
         image_data = await file.read()
         input_image = Image.open(io.BytesIO(image_data))
-        output_image = remove(input_image)
+        output_image = remove(input_image, session=session)
         
         img_byte_arr = io.BytesIO()
         output_image.save(img_byte_arr, format='PNG')
